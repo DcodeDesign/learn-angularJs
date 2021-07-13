@@ -35,7 +35,7 @@ const commonConfig = {
     new CleanWebpackPlugin(['./public/dist/']),
     new MiniCssExtractPlugin({
       filename: 'style.css'
-    }),
+    })
   ]
 };
 const devConfig = {

@@ -5,7 +5,12 @@ import 'ngstorage';
 import 'angular-messages';
 
 import {signin, refreshToken} from './services/auth.service';
-import routes from './routes/routes'
+import routes from './routes/routes';
+
+import 'jquery';
+import '@popperjs/core';
+import 'bootstrap';
+import './app.scss'
 
 angular
     .module('app', ['ui.router', 'ngMessages', 'ngStorage'])
