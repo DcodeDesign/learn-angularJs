@@ -1,0 +1,22 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "description": "npm install -g bower",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.8.2",
+    "angular-route": "^1.8.2",
+    "angularjs": "0.0.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.3.2",
+    "webpack": "^5.44.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

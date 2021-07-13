@@ -1,0 +1,12 @@
+{{ $ctrl.items }}
+<test></test>
+<form>
+    <label for="name"> name: </label>
+    <input ng-model="$ctrl.item.name" type="text" id="name" name="name">
+
+    <label for="category"> category: </label>
+    <select id="category"
+            ng-model="$ctrl.item.category_id"
+            ng-options="category.id as category.name for category in $ctrl.categories" ></select>
+    <button ng-click="$ctrl.createItem($ctrl.item)">Create</button>
+</form>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr" data-framework="angularjs">
+
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS</title>
+	<link rel="stylesheet" href="assets/style.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="app.js"></script>
+</head>
+
+<body ng-app="app">
+	<div class="container">
+
+		<p ng-init="myVar = 'toto'"> {{ myVar }} </p>
+		<p ng-init="nb1=1; nb2= 4"> {{ nb1 + nb2 }} </p>
+
+		<hr>
+
+		<input type="text" placeholder="Enter text" ng-model="bindTest">
+		<p>{{ bindTest }}</p>
+
+		<hr>
+
+		<div ng-controller="myController">
+			<h2>Controller 1</h2>
+			<p>{{ test }}</p>
+			<p>{{ firstName }} {{ lastName }}</p>
+			<ul>
+				<li ng-repeat="item in items | orderBy:'name'">
+					{{ item.name | uppercase }} {{ item.age }} {{ item.sexe }}
+				</li>
+			</ul>
+		</div>
+
+		<div ng-controller="myController2">
+			<h2>Controller 2</h2>
+			<p>{{ firstName }} {{ lastName }}</p>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
