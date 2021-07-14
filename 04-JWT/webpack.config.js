@@ -4,10 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 
 const commonConfig = {
-  entry: './src/app.js',
+  entry: './src/app.module.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './public/dist/'),
+    path: path.resolve(__dirname, './bin/dist/'),
     publicPath: '/dist/'
   },
   module: {
@@ -25,14 +25,14 @@ const commonConfig = {
       }]
     },
     {
-      test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif)$/,
+      test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|jpeg|gif)$/,
       use: [
         'file-loader'
       ]
     }]
   },
   plugins: [
-    new CleanWebpackPlugin(['./public/dist/']),
+    new CleanWebpackPlugin(['./bin/dist/']),
     new MiniCssExtractPlugin({
       filename: 'style.css'
     })
@@ -55,7 +55,7 @@ const devConfig = {
     ]
   },
   devServer: {
-    contentBase: './public/',
+    contentBase: './bin/',
     historyApiFallback: true
   },
   devtool: 'eval-source-map' // https://webpack.js.org/configuration/devtool/#devtool

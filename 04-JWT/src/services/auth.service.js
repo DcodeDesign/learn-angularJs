@@ -35,7 +35,6 @@ export function signin($http, $localStorage) {
 
 export function refreshToken($rootScope, $http, $location, $localStorage, $interval) {
 
-
     $interval(function () {
         if ($localStorage.currentUser) {
             $http({
@@ -50,13 +49,15 @@ export function refreshToken($rootScope, $http, $location, $localStorage, $inter
             })
         }
     }, 4000);
+}
 
-    // keep user logged in after page refresh
+export function refreshPage( $http,$localStorage) {
     if ($localStorage.currentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
     }
+}
 
-    // redirect to login page if not logged in and trying to access a restricted page
+export function redirect($rootScope, $location, $localStorage) {
     $rootScope.$on('$locationChangeStart', function () {
         let publicPages = ['/login'];
         let restrictedPage = publicPages.indexOf($location.path()) === -1;
