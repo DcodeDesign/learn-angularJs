@@ -3,16 +3,17 @@ const angular = require('angular');
 require('./home.css')
 
 function homeCtrl($scope, $sessionStorage, $state, $filter, LoginSvc) {
-  $scope.title = 'app';
-  $scope.navBar = require('../../shared/includes/navbar.html')
+  // $scope.navBar = require('../../shared/includes/navbar.html')
   $scope.links = $state.get()
     .filter(x => x.name.startsWith('home.'))
     .map(x => {
+
       return {
         title: x.url.slice(1),
         link: $state.href(x.name)
       }
     });
+
   $scope.tableData = [
     ['#', 'Header', 'Header', 'Header', 'Header' ],
     ["1001","Lorem","ipsum","dolor","sit"],
@@ -31,12 +32,12 @@ function homeCtrl($scope, $sessionStorage, $state, $filter, LoginSvc) {
     ["1013","torquent","per","conubia","nostra"]
   ]
 
-  $scope.signout = signout;
+  /*$scope.signout = signout;
 
   function signout(){
     LoginSvc.logout()
     $state.go('login')
-  }
+  }*/
 
 }
 

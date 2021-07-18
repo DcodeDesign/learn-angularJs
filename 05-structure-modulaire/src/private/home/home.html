@@ -1,4 +1,5 @@
-<div ng-include="navBar"></div>
+<!--<div ng-include="navBar"></div>-->
+<div nav-bar ></div>
 <ul class="nav" ng-if="links">
   <li class="nav-item" ng-repeat="link in links">
     <a class="nav-link" ui-sref-active="active" ng-href="{{link.link}}">{{link.title | titlecase}}</a>

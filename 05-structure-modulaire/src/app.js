@@ -31,7 +31,9 @@ importAll(require.context('./shared/filters', false, /\.js$/));
 importAll(require.context('./shared/directives', false, /\.js$/))
 
 importAll(require.context('./public/login', false, /.js$/))
+importAll(require.context('./private/account', false, /.js$/))
 importAll(require.context('./private/home', true, /.js$/))
+
 
 require('./app.css');
 import './index.html';
