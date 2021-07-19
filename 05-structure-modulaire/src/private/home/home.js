@@ -1,67 +1,81 @@
 'use strict';
 const angular = require('angular');
+const marked = require("marked");
 require('./home.css')
 
-function homeCtrl($scope, $sessionStorage, $state, $filter, LoginSvc) {
-  // $scope.navBar = require('../../shared/includes/navbar.html')
-  $scope.links = $state.get()
-    .filter(x => x.name.startsWith('home.'))
-    .map(x => {
+function homeCtrl($scope, $http, NoteSvc) {
+    console.log($scope, $http, NoteSvc)
 
-      return {
-        title: x.url.slice(1),
-        link: $state.href(x.name)
-      }
-    });
+    initController();
 
-  $scope.tableData = [
-    ['#', 'Header', 'Header', 'Header', 'Header' ],
-    ["1001","Lorem","ipsum","dolor","sit"],
-    ["1002","amet","consectetur","adipiscing","elit"],
-    ["1003","Integer","nec","odio","Praesent"],
-    ["1003","libero","Sed","cursus","ante"],
-    ["1004","dapibus","diam","Sed","nisi"],
-    ["1005","Nulla","quis","sem","at"],
-    ["1006","nibh","elementum","imperdiet","Duis"],
-    ["1007","sagittis","ipsum","Praesent","mauris"],
-    ["1008","Fusce","nec","tellus","sed"],
-    ["1009","augue","semper","porta","Mauris"],
-    ["1010","massa","Vestibulum","lacinia","arcu"],
-    ["1011","eget","nulla","Class","aptent"],
-    ["1012","taciti","sociosqu","ad","litora"],
-    ["1013","torquent","per","conubia","nostra"]
-  ]
+    function initController() {
+        $scope.loading = false;
+        $scope.loadingNotes = false;
+        $scope.createNote = createNote;
+        $scope.previewMarkDown = previewMarkDown;
+        $scope.notes = []
 
-  /*$scope.signout = signout;
+        $scope.change=function($event){
+            $scope.html = marked($event.target.value);
+        };
+        getAllNotes();
+    }
 
-  function signout(){
-    LoginSvc.logout()
-    $state.go('login')
-  }*/
+    function previewMarkDown (value) {
+        return marked(value)
+    }
+
+    function getAllNotes() {
+        $scope.loadingNotes = true;
+        NoteSvc.getAllNotes(function (result) {
+            console.log(result)
+            if (result) {
+                $scope.notes = result.data;
+                $scope.loadingNotes = false;
+            } else {
+                $scope.error = 'Error';
+                 $scope.loadingNotes = false;
+            }
+        });
+
+    }
+
+    function createNote() {
+        $scope.loading = true;
+        NoteSvc.createNote($scope.titre, $scope.note, function (result) {
+            if (result === true) {
+                $scope.loading = false;
+                getAllNotes()
+            } else {
+                $scope.error = 'Error';
+                $scope.loading = false;
+
+            }
+        });
+
+    }
 
 }
 
 const stateConfig = {
-  name: 'home',
-  url: '/home',
-  templateUrl: require('./home.html'),
-  controller: 'homeCtrl'
+    name: 'home',
+    url: '/home',
+    templateUrl: require('./home.html'),
+    controller: 'homeCtrl'
 };
 
 homeCtrl.$inject = [
-  '$scope',
-  '$sessionStorage',
-  '$state',
-  '$filter',
-  'LoginSvc'
+    '$scope',
+    '$http',
+    'NoteSvc'
 ]
 
 function routeConfig($stateProvider) {
-  $stateProvider.state(stateConfig)
+    $stateProvider.state(stateConfig)
 }
 
 angular.module('app')
-  .controller('homeCtrl', homeCtrl)
-  .config([ '$stateProvider', routeConfig ])
+    .controller('homeCtrl', homeCtrl)
+    .config(['$stateProvider', routeConfig])
 
 module.exports = stateConfig;

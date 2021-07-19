@@ -12,13 +12,14 @@ require('bootstrap/dist/js/bootstrap.js');
 require('font-awesome/css/font-awesome.css')
 require('popper.js/dist/popper.js');
 require('jquery/dist/jquery.js');
+require('angular-sanitize')
 
 function importAll(r) {
   r.keys().forEach(r);
 }
 
 import {redirect, refreshPage, refreshToken} from "./shared/services/auth.service";
-angular.module('app', ['ui.router', 'ngStorage', 'ngMessages'])
+angular.module('app', ['ui.router', 'ngStorage', 'ngMessages', 'ngSanitize'])
     .config(['$urlRouterProvider', function ($urlRouterProvider){
       $urlRouterProvider.otherwise('/home')
     }])

@@ -1,15 +1,65 @@
 <!--<div ng-include="navBar"></div>-->
-<div nav-bar ></div>
-<ul class="nav" ng-if="links">
-  <li class="nav-item" ng-repeat="link in links">
-    <a class="nav-link" ui-sref-active="active" ng-href="{{link.link}}">{{link.title | titlecase}}</a>
-  </li>
-</ul>
+<div nav-bar></div>
+
+<div class="container pt-5">
+    <form name="form" ng-submit="form.$valid && createNote()" novalidate>
+
+        <div class="mb-3" ng-class="{ '': form.$submitted && form.titre.$invalid }">
+            <input id="titre"
+                   placeholder="Titre"
+                   type="text"
+                   name="titre"
+                   class="form-control border border-light border-bottom shadow-sm p-3 bg-body rounded "
+                   ng-model="titre"
+                   required/>
+            <div ng-messages="form.$submitted && form.titre.$error" class="help-block">
+                <div ng-message="required">Titre is required</div>
+            </div>
+        </div>
+
+        <div class="mb-3" ng-class="{ '': form.$submitted && form.note.$invalid }">
+            <textarea id="note"
+                      rows="3"
+                      type="text"
+                      maxlength="102056"
+                      name="note"
+                      ng-keyup="change($event); count = count + 1; $event.preventDefault()"
+                      ng-init="count=0"
+                      class="form-control border border-light shadow-sm p-3  bg-body rounded"
+                      ng-model="note" required></textarea>
+            key press count: {{note.length}}
+            <div ng-messages="form.$submitted && form.note.$error" class="help-block">
+                <div ng-message="required">Note is required</div>
+            </div>
+        </div>
+
+        <button ng-disabled="loading" class="btn btn-primary shadow p-2 rounded w-full">
+            <span ng-if="!loading">Créer</span>
+            <div ng-if="loading" class="spinner-border spinner-border-sm text-light" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </button>
+
+        <div ng-if="error" class="alert alert-danger mt-3">{{error}}</div>
+
+    </form>
+</div>
+
+<div class="container pt-5" ng-bind-html="html">
+</div>
+
+<div class="container pt-5">
+
+    <div ng-if="loadingNotes" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <div ng-repeat="value in notes">
+        <h3>{{ value.titre }} </h3>
+        <!--<div  ng-bind-html="previewMarkDown(value.note)"> </div>-->
+    </div>
+</div>
 <main role="main" class="container pt-5" ui-view>
-  <div class="starter-template">
-    <h1>Bootstrap starter template</h1>
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-  </div>
-  <div test-table data="tableData"></div>
+
 
 </main><!-- /.container -->

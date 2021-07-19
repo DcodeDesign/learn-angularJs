@@ -1,18 +1,17 @@
 'use strict';
-var angular = require('angular');
+const angular = require('angular');
 
 require('./login.css')
 
 function loginCtrl($scope, $localStorage, $location,LoginSvc) {
 
     $scope.login = login;
-
     $scope.error = null;
+    $scope.loading = false;
 
     initController();
 
     function initController() {
-        // reset login status
         LoginSvc.logout();
     }
 
@@ -28,7 +27,6 @@ function loginCtrl($scope, $localStorage, $location,LoginSvc) {
             }
         });
     }
-
 }
 
 var stateConfig = {

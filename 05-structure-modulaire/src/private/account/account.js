@@ -3,6 +3,7 @@ const angular = require('angular');
 function accountCtrl ($scope, $http) {
 
     $scope.navBar = require('../../shared/includes/navbar.html')
+
     initController();
 
     function initController() {
