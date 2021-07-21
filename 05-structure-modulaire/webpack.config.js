@@ -17,7 +17,7 @@ let webpackConfig = {
   entry: path.join(path.resolve(srcDir), 'app.js'),
   output: {
     path: path.resolve(outDir),
-    filename: 'js/app.js',
+    filename: 'dist/app.js',
     publicPath: '/'
   },
   module: {
@@ -69,7 +69,7 @@ let webpackConfig = {
       $: "jquery",
       jQuery: "jquery",
       "window.jQuery": "jquery",
-      Popper: ['popper.js', 'default']
+      Popper: ['popper.dist', 'default']
     })
   ],
   devtool: isProdBuild ? 'source-map' : '#inline-source-map',

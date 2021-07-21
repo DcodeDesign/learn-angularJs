@@ -1,15 +1,14 @@
 'use strict';
+require('./nav-bar.css')
 
 function navBar($state, LoginSvc) {
 
   return {
     restrict: 'A',
-    scope: {
-
-    },
+    scope: {},
     templateUrl: require('./nav-bar.html'),
     link: function(scope, element, attrs, controller, transcludeFn){
-      scope.title = 'app'
+      scope.title =  'app';
       scope.signout = function (){
         LoginSvc.logout()
         $state.go('login')

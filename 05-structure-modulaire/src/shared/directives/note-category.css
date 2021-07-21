@@ -1,0 +1,32 @@
+/*
+    @import "../../../assets/css/common/theme.css";
+*/
+
+
+/*******************
+  note-categories
+********************/
+
+.note-categories {
+    width: 100%;
+    min-width: 150px;
+    max-width: 200px;
+    height: calc(100vh - 57px);
+    overflow: auto;
+    background-color: var(--color-dark-h);
+    border-right: 1px solid black;
+}
+
+
+/************
+   spinner
+*************/
+.spinner-category-notes {
+    height: calc(100vh - 70px);
+    align-items: center;
+}
+
+/*************
+  custom nav
+*************/
+

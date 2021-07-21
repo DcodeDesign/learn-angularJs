@@ -4,9 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 
 const commonConfig = {
-  entry: './src/app.module.js',
+  entry: './src/app.module.dist',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.dist',
     path: path.resolve(__dirname, './bin/dist/'),
     publicPath: '/dist/'
   },

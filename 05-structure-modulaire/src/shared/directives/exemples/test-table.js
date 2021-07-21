@@ -1,4 +1,5 @@
 'use strict';
+
 function testTable(){
   return {
     restrict: 'A',

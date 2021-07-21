@@ -1,9 +1,9 @@
 'use strict';
 
-function NoteSvc($rootScope, $http){
+function NoteSvc($http){
 
-    function createNote(titre, note, callback) {
-        $http.post('http://localhost:3000/api/note/create', {titre: titre, note: note})
+    function createCategory(titre, note, callback) {
+        $http.post('http://localhost:3000/api/category/create', {titre: titre, note: note})
             .catch(function(error) {
                 if(error) {
                     return false;
@@ -19,22 +19,21 @@ function NoteSvc($rootScope, $http){
         });
     }
 
-    function getAllNotes(callback) {
-        $http.get('http://localhost:3000/api/note/getAll')
+    function getAllCategories(callback) {
+        $http.get('http://localhost:3000/api/category/getAll')
             .then(function (response) {
                 callback(response)
             });
     }
 
     return {
-        createNote: createNote,
-        getAllNotes: getAllNotes
+        createCategory: createCategory,
+        getAllCategories: getAllCategories
     }
 
 }
 
 const serviceConfig = [
-    '$rootScope',
     '$http',
     NoteSvc
 ]
