@@ -2,31 +2,30 @@
     @import "../../../assets/css/common/theme.css";
 */
 
-
-/*******************
-  note-categories
-********************/
-
-.note-categories {
+/************
+  note-list
+*************/
+.note-list {
     width: 100%;
     min-width: 150px;
     max-width: 200px;
     height: calc(100vh - 57px);
     overflow: auto;
-    background-color: var(--color-dark-h);
+    background-color: var(--color-dark-m);
     border-right: 1px solid black;
 }
-
 
 /************
    spinner
 *************/
-.spinner-category-notes {
-    height: calc(100vh - 70px);
+.spinner-list-notes {
+    height: calc(100vh - 120px);
     align-items: center;
 }
 
-/*************
-  custom nav
-*************/
-
+/***************
+   active note
+****************/
+.active-note {
+    border-right:4px solid white;
+}

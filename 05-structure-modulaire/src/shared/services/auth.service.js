@@ -1,5 +1,3 @@
-console.log(process.env.API_HOST);
-
 export function refreshToken($rootScope, $http, $location, $localStorage, $interval) {
 
     $interval(function () {
@@ -11,11 +9,12 @@ export function refreshToken($rootScope, $http, $location, $localStorage, $inter
                     'Authorization': `Bearer ${$localStorage.currentUser.token}`
                 }
             }).then(function (resp) {
+                console.log('resp', resp);
                 $localStorage.currentUser = { email: $localStorage.currentUser.email , token: resp.data };
                 $http.defaults.headers.common.Authorization = 'Bearer ' + resp.data;
             })
         }
-    }, 4000);
+    }, 1200000);
 }
 
 export function refreshPage( $http,$localStorage) {

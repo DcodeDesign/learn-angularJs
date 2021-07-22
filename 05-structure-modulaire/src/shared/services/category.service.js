@@ -1,9 +1,9 @@
 'use strict';
 
-function NoteSvc($http){
+function CategorySvc($http){
 
-    function createCategory(titre, note, callback) {
-        $http.post('http://localhost:3000/api/category/create', {titre: titre, note: note})
+    function createCategory(titre, callback) {
+        $http.post(process.env.API_HOST + '/category/create', {titre: titre})
             .catch(function(error) {
                 if(error) {
                     return false;
@@ -20,7 +20,7 @@ function NoteSvc($http){
     }
 
     function getAllCategories(callback) {
-        $http.get('http://localhost:3000/api/category/getAll')
+        $http.get(process.env.API_HOST + '/category/getAll')
             .then(function (response) {
                 callback(response)
             });
@@ -35,14 +35,14 @@ function NoteSvc($http){
 
 const serviceConfig = [
     '$http',
-    NoteSvc
+    CategorySvc
 ]
 
-angular.module('app')
-    .factory('NoteSvc', serviceConfig)
+angular.module(process.env.ROOT)
+    .factory('CategorySvc', serviceConfig)
 
 module.exports = {
-    name: 'NoteSvc',
+    name: 'CategorySvc',
     factory: serviceConfig
 }
 

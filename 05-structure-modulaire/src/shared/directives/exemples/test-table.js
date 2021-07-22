@@ -7,8 +7,8 @@ function testTable(){
       rows: '=data'
     },
     templateUrl: require('./test-table.html'),
-    link: function(scope, element, attrs, controller, transcludeFn){
-      var unwatch = scope.$watch('rows', (nv, ov) => {
+    link: function(scope){
+      const unwatch = scope.$watch('rows', (nv, ov) => {
         if ( !!nv ) {
           unwatch();
           launch();
@@ -22,7 +22,7 @@ function testTable(){
   }
 }
 
-angular.module('app')
+angular.module(process.env.ROOT)
   .directive('testTable', testTable)
 
 module.exports = {

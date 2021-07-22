@@ -10,7 +10,7 @@ function titleCase(){
   return (input) => input.replace(/([a-z])([A-Z])/g, '$1 $2').split(' ').map(capitalize).join(' ')
 }
 
-angular.module('app')
+angular.module(process.env.ROOT)
   .filter('titlecase', titleCase)
 
 module.exports = {

@@ -2,8 +2,9 @@
 
 function NoteSvc($rootScope, $http){
 
-    function createNote(titre, note, callback) {
-        $http.post('http://localhost:3000/api/note/create', {titre: titre, note: note})
+    function createNote(titre, note, cat_id, callback) {
+        console.log(titre, note, cat_id)
+        $http.post(process.env.API_HOST + '/note/create', {titre: titre, note: note, cat: cat_id})
             .catch(function(error) {
                 if(error) {
                     return false;
@@ -11,7 +12,7 @@ function NoteSvc($rootScope, $http){
             }).then(function (response) {
             if (response) {
                 console.log('successful')
-                callback(true);
+                callback(response);
             } else {
                 console.log('failed')
                 callback(false);
@@ -19,16 +20,43 @@ function NoteSvc($rootScope, $http){
         });
     }
 
+    function getCatNotes(cat_id, callback) {
+        $http.get(process.env.API_HOST + '/note/getAllByCategory/' + cat_id)
+            .catch(function(error) {
+                if(error) {
+                    return false;
+                }
+            }).then(function (response) {
+            if (response) {
+                console.log('successful')
+                callback(response);
+            } else {
+                console.log('failed')
+                callback(response);
+            }
+        });
+    }
+
     function getAllNotes(callback) {
-        $http.get('http://localhost:3000/api/note/getAll')
+        $http.get(process.env.API_HOST + '/note/getAll')
             .then(function (response) {
                 callback(response)
             });
     }
 
+    function getOneNote(note_id, callback) {
+        $http.get(process.env.API_HOST + '/note/getOne/' + note_id)
+            .then(function (response) {
+                console.log(response);
+                callback(response);
+            });
+    }
+
     return {
         createNote: createNote,
-        getAllNotes: getAllNotes
+        getAllNotes: getAllNotes,
+        getCatNotes: getCatNotes,
+        getOneNote: getOneNote
     }
 
 }
@@ -39,7 +67,7 @@ const serviceConfig = [
     NoteSvc
 ]
 
-angular.module('app')
+angular.module(process.env.ROOT)
     .factory('NoteSvc', serviceConfig)
 
 module.exports = {

@@ -7,7 +7,7 @@ function navBar($state, LoginSvc) {
     restrict: 'A',
     scope: {},
     templateUrl: require('./nav-bar.html'),
-    link: function(scope, element, attrs, controller, transcludeFn){
+    link: function(scope){
       scope.title =  'app';
       scope.signout = function (){
         LoginSvc.logout()
@@ -17,7 +17,7 @@ function navBar($state, LoginSvc) {
   }
 }
 
-angular.module('app')
+angular.module(process.env.ROOT)
     .directive('navBar', ['$state' ,'LoginSvc', navBar])
 
 module.exports = {

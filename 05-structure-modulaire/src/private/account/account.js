@@ -29,7 +29,7 @@ function routeConfig($stateProvider) {
     $stateProvider.state(stateConfig)
 }
 
-angular.module('app')
+angular.module(process.env.ROOT)
     .controller('accountCtrl', accountCtrl)
     .config([ '$stateProvider', routeConfig ])
 

@@ -57,3 +57,10 @@
     color: red;
 }
 
+/*******
+message
+*******/
+
+.message {
+    height:calc(100vh - 50px);
+}

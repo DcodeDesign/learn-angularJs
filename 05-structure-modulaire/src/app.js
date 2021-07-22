@@ -19,7 +19,7 @@ function importAll(r) {
 }
 
 import {redirect, refreshPage, refreshToken} from "./shared/services/auth.service";
-angular.module('app', ['ui.router', 'ngStorage', 'ngMessages', 'ngSanitize'])
+angular.module(process.env.ROOT, ['ui.router', 'ngStorage', 'ngMessages', 'ngSanitize'])
     .config(['$urlRouterProvider', function ($urlRouterProvider){
       $urlRouterProvider.otherwise('/home')
     }])
@@ -29,8 +29,8 @@ angular.module('app', ['ui.router', 'ngStorage', 'ngMessages', 'ngSanitize'])
 
 importAll(require.context('./shared/services', false, /\.js$/));
 importAll(require.context('./shared/filters', false, /\.js$/));
-importAll(require.context('./shared/directives', false, /\.js$/))
-
+// importAll(require.context('./shared/directives', false, /\.js$/))
+require('./shared/directives')
 importAll(require.context('./public/login', false, /.js$/))
 importAll(require.context('./private/account', false, /.js$/))
 importAll(require.context('./private/home', true, /.js$/))
@@ -39,7 +39,7 @@ importAll(require.context('./private/home', true, /.js$/))
 require('./app.css');
 import './index.html';
 
-console.log('test Ready')
+console.log('App is Ready')
 
 
 

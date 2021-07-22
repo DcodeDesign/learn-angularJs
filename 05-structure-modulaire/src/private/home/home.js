@@ -21,7 +21,7 @@ function routeConfig($stateProvider) {
     $stateProvider.state(stateConfig)
 }
 
-angular.module('app')
+angular.module(process.env.ROOT)
     .controller('homeCtrl', homeCtrl)
     .config(['$stateProvider', routeConfig])
 
