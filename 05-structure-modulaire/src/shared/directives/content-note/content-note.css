@@ -7,7 +7,8 @@
 ********************/
 .content-notes {
     width: 100%;
-    background-color: var(--color-dark)
+    background-color: var(--color-dark);
+    border-left: 1px dashed var(--color-dark-m);
 }
 
 .note-nav{
@@ -23,7 +24,7 @@
     width:100%;
     background-color: var(--color-dark);
     border:none;
-    border-bottom:1px solid var(--color-dark-m);
+    border-bottom:1px dashed var(--color-dark-m);
     outline: none;
     color:white;
 }
@@ -53,14 +54,24 @@
     color:white;
 }
 
+/* show error validation form */
 .is-required ::placeholder {
     color: red;
 }
+.select-cat{
+    padding: 17px ;
+    background-color: var(--color-dark);
+    border: none;
+    border-bottom: 1px dashed var(--color-dark-m);
+    border-left: 1px dashed var(--color-dark-m);
+    outline: none;
+    color: white;
+}
 
-/*******
-message
-*******/
 
-.message {
-    height:calc(100vh - 50px);
+/*************
+  note-empty
+*************/
+.note-empty {
+    height:calc(100vh - 58px);
 }

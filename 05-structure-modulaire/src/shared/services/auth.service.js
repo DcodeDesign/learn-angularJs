@@ -1,6 +1,7 @@
 export function refreshToken($rootScope, $http, $location, $localStorage, $interval) {
 
-    $interval(function () {
+    const interval = $interval(function () {
+        console.log($localStorage.currentUser)
         if ($localStorage.currentUser) {
             $http({
                 method: 'GET',
@@ -8,13 +9,25 @@ export function refreshToken($rootScope, $http, $location, $localStorage, $inter
                 headers: {
                     'Authorization': `Bearer ${$localStorage.currentUser.token}`
                 }
-            }).then(function (resp) {
-                console.log('resp', resp);
-                $localStorage.currentUser = { email: $localStorage.currentUser.email , token: resp.data };
-                $http.defaults.headers.common.Authorization = 'Bearer ' + resp.data;
+            }).catch(
+                (error) => {
+                    if(error){
+                        return false
+                    }
+                }).then(function (resp) {
+                if(resp){
+                    console.log('resp', resp);
+                    $localStorage.currentUser = { email: $localStorage.currentUser.email , token: resp.data };
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + resp.data;
+                } else {
+                    $location.path('/login');
+                }
+
             })
+        } else{
+            $location.path('/login');
         }
-    }, 1200000);
+    }, 1100000);
 }
 
 export function refreshPage( $http,$localStorage) {

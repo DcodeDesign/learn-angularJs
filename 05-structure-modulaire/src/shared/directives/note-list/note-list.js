@@ -1,13 +1,8 @@
 'use strict';
 require('./note-list.css')
 
-function NoteListCtrl($scope, NoteSvc) {
+function NoteListCtrl($scope, NoteSvc, CategorySvc) {
     initController();
-
-    $scope.$on('selectedCategory', function(event, message){
-        // console.log(message);
-        // getNotes();
-    })
 
     function initController() {
         $scope.formData = {};
@@ -111,7 +106,7 @@ function noteList(NoteSvc) {
 }
 
 angular.module(process.env.ROOT)
-    .controller('NoteListCtrl', ['$rootScope', 'NoteSvc', NoteListCtrl])
+    .controller('NoteListCtrl', ['$rootScope', 'NoteSvc','CategorySvc', NoteListCtrl])
     .directive('noteList', ['NoteSvc', noteList])
 
 module.exports = {

@@ -25,11 +25,18 @@ function NoteCategoryCtrl($scope, CategorySvc) {
                 $scope.loading = false;
                 getAllCategories();
                 $scope.activeCreaCat();
+                emitEventCat($scope.category)
             } else {
                 $scope.errorCategory = 'Error';
                 $scope.loadingCategory = false;
             }
         });
+    }
+
+    function emitEventCat(value){
+        $scope.$emit('newCategory', {
+            emit: value
+        })
     }
 
     function getAllCategories() {

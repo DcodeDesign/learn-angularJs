@@ -13,20 +13,34 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <form name="form" ng-submit="form.$valid && createNote()" novalidate>
+                <div class="d-flex w-full">
+                    <div class="w-full" ng-class="{ 'is-required': form.$submitted && form.titre.$invalid }">
+                        <input id="titre"
+                               placeholder="Titre"
+                               type="text"
+                               name="titre"
+                               class="note-title"
+                               ng-model="titre"
+                               autocomplete="off"
+                               required/>
+                        <!-- <div ng-messages="form.$submitted && form.titre.$error" class="help-block">
+                             <div ng-message="required">Titre is required</div>
+                         </div>-->
+                    </div>
 
-                <div ng-class="{ 'is-required': form.$submitted && form.titre.$invalid }">
-                    <input id="titre"
-                           placeholder="Titre"
-                           type="text"
-                           name="titre"
-                           class="note-title"
-                           ng-model="titre"
-                           autocomplete="off"
-                           required/>
-                    <!-- <div ng-messages="form.$submitted && form.titre.$error" class="help-block">
-                         <div ng-message="required">Titre is required</div>
-                     </div>-->
+                    <div class="w-full" ng-class="{ 'is-required': form.$submitted && form.titre.$invalid }">
+                        <select class="select-cat w-full text-white-50">
+                            <option ng-value="" > Selectionner une categorie </option>
+                            <option ng-repeat="cat in noteCategories"
+                                    ng-value="cat._id"
+                                    ng-selected="selectedCat(cat._id)"
+                            >
+                                {{cat.titre}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
+
 
                 <div ng-class="{ 'is-required': form.$submitted && form.note.$invalid }">
                 <textarea id="note"
@@ -45,7 +59,7 @@
                 </div>
 
                 <button ng-disabled="loadingNotes" class="note-btn shadow-lg bg-secondary text-white">
-                    <span ng-if="!loadingNotes">Enregister <i class="fa fa-plus-square" aria-hidden="true"></i></span>
+                    <span ng-if="!loadingNotes">Enregister <i class="fa fa-floppy-o" aria-hidden="true"></i></span>
                     <div ng-if="loadingNotes" class="spinner-border spinner-border-sm text-light" role="status">
                         <span class="visually-hidden"></span>
                     </div>
@@ -61,6 +75,6 @@
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
     </div>
 </div>
-<div class="message d-flex justify-content-center align-items-center" ng-show="!activeViewNote" >
+<div class="note-empty d-flex justify-content-center align-items-center" ng-show="!activeViewNote" >
     <p class="d-flex text-white-50 text-center ">"Sélectionner une note"</p>
 </div>
