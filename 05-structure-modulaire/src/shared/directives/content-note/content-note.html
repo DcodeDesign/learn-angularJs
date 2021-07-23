@@ -28,9 +28,9 @@
                          </div>-->
                     </div>
 
-                    <div class="w-full" ng-class="{ 'is-required': form.$submitted && form.titre.$invalid }">
-                        <select class="select-cat w-full text-white-50">
-                            <option ng-value="" > Selectionner une categorie </option>
+                    <div class="w-full" ng-class="{ 'is-required': form.$submitted && form.cat.$invalid }">
+                        <select class="select-cat w-full text-white-50" name="cat" ng-model="cat_id" required>
+                            <option ng-value="" ng-selected="!cat_id"> Selectionner une categorie {{cat_id}}</option>
                             <option ng-repeat="cat in noteCategories"
                                     ng-value="cat._id"
                                     ng-selected="selectedCat(cat._id)"
@@ -51,6 +51,7 @@
                           name="note"
                           ng-keyup="change($event); $event.preventDefault()"
                           class="note-text"
+                          ng-keydown="keyTab($event)"
                           ng-model="note" required></textarea>
                     <!-- key press count: {{note.length}}-->
                     <!-- <div ng-messages="form.$submitted && form.note.$error" class="help-block">

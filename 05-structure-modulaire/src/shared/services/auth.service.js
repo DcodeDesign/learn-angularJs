@@ -1,7 +1,5 @@
 export function refreshToken($rootScope, $http, $location, $localStorage, $interval) {
-
-    const interval = $interval(function () {
-        console.log($localStorage.currentUser)
+    $interval(function () {
         if ($localStorage.currentUser) {
             $http({
                 method: 'GET',
@@ -12,32 +10,37 @@ export function refreshToken($rootScope, $http, $location, $localStorage, $inter
             }).catch(
                 (error) => {
                     if(error){
+                        console.log(error)
                         return false
                     }
                 }).then(function (resp) {
                 if(resp){
-                    console.log('resp', resp);
                     $localStorage.currentUser = { email: $localStorage.currentUser.email , token: resp.data };
                     $http.defaults.headers.common.Authorization = 'Bearer ' + resp.data;
                 } else {
                     $location.path('/login');
                 }
-
-            })
+            }).catch(function(error) {
+                if(error) {
+                    $location.path('/login');
+                }
+            });
         } else{
-            $location.path('/login');
+
         }
-    }, 1100000);
+    }, 900000);
 }
 
-export function refreshPage( $http,$localStorage) {
+export function refreshPage( $http,$localStorage, $location) {
     if ($localStorage.currentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+    }else{
+        $location.path('/login');
     }
 }
 
 export function redirect($rootScope, $location, $localStorage) {
-    $rootScope.$on('$locationChangeStart', function () {
+   $rootScope.$on('$locationChangeStart', function () {
         let publicPages = ['/login'];
         let restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$localStorage.currentUser) {

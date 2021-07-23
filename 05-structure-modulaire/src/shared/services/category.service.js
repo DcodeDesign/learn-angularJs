@@ -1,11 +1,11 @@
 'use strict';
 
-function CategorySvc($http){
+function CategorySvc($http, ErrorHttpSvc) {
 
     function createCategory(titre, callback) {
         $http.post(process.env.API_HOST + '/category/create', {titre: titre})
-            .catch(function(error) {
-                if(error) {
+            .catch(function (error) {
+                if (error) {
                     return false;
                 }
             }).then(function (response) {
@@ -16,6 +16,11 @@ function CategorySvc($http){
                 console.log('failed')
                 callback(false);
             }
+        }).catch(function(error) {
+            if(error) {
+                ErrorHttpSvc.error();
+                console.log(error)
+            }
         });
     }
 
@@ -23,7 +28,12 @@ function CategorySvc($http){
         $http.get(process.env.API_HOST + '/category/getAll')
             .then(function (response) {
                 callback(response)
-            });
+            }).catch(function (error) {
+            if (error) {
+                ErrorHttpSvc.error();
+                console.log(error)
+            }
+        })
     }
 
     return {
@@ -35,6 +45,7 @@ function CategorySvc($http){
 
 const serviceConfig = [
     '$http',
+    'ErrorHttpSvc',
     CategorySvc
 ]
 

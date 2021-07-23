@@ -1,62 +1,111 @@
 'use strict';
 
-function NoteSvc($rootScope, $http){
+function NoteSvc($rootScope, $http, ErrorHttpSvc) {
 
     function createNote(titre, note, cat_id, callback) {
-        console.log(titre, note, cat_id)
         $http.post(process.env.API_HOST + '/note/create', {titre: titre, note: note, cat: cat_id})
-            .catch(function(error) {
-                if(error) {
+            .catch(function (error) {
+                if (error) {
+                    ErrorHttpSvc.error();
+                    console.log(error)
                     return false;
                 }
             }).then(function (response) {
             if (response) {
-                console.log('successful')
                 callback(response);
             } else {
-                console.log('failed')
                 callback(false);
+            }
+        }).catch(function (error) {
+            if (error) {
+                console.log(error)
+                ErrorHttpSvc.error();
             }
         });
     }
 
     function getCatNotes(cat_id, callback) {
         $http.get(process.env.API_HOST + '/note/getAllByCategory/' + cat_id)
-            .catch(function(error) {
-                if(error) {
+            .catch(function (error) {
+                console.log(error)
+                if (error) {
+                    ErrorHttpSvc.error();
                     return false;
                 }
             }).then(function (response) {
             if (response) {
-                console.log('successful')
                 callback(response);
             } else {
-                console.log('failed')
                 callback(response);
+            }
+        }).catch(function (error) {
+            if (error) {
+                ErrorHttpSvc.error();
+                console.log(error)
             }
         });
     }
 
     function getAllNotes(callback) {
         $http.get(process.env.API_HOST + '/note/getAll')
-            .then(function (response) {
-                callback(response)
-            });
+            .catch(function (error) {
+                console.log(error)
+                if (error) {
+                    ErrorHttpSvc.error();
+                    return false;
+                }
+            }).then(function (response) {
+            callback(response)
+        }).catch(function (error) {
+            if (error) {
+                ErrorHttpSvc.error();
+                console.log(error)
+            }
+        });
     }
 
     function getOneNote(note_id, callback) {
-        $http.get(process.env.API_HOST + '/note/getOne/' + note_id)
-            .then(function (response) {
-                console.log(response);
-                callback(response);
-            });
+        $http.get(process.env.API_HOST + '/note/getOne/' + note_id,)
+            .catch(function (error) {
+                console.log(error)
+                if (error) {
+                    ErrorHttpSvc.error();
+                    return false;
+                }
+            }).then(function (response) {
+            callback(response);
+        }).catch(function (error) {
+            if (error) {
+                ErrorHttpSvc.error();
+                console.log(error)
+            }
+        });
+    }
+
+    function updateOne(note_id, titre, note, cat_id, callback) {
+        $http.put(process.env.API_HOST + '/note/updateOne/' + note_id, {titre: titre, note: note, cat: cat_id})
+            .catch(function (error) {
+                console.log(error)
+                if (error) {
+                    ErrorHttpSvc.error();
+                    return false;
+                }
+            }).then(function (response) {
+            callback(response);
+        }).catch(function (error) {
+            if (error) {
+                ErrorHttpSvc.error();
+                console.log(error)
+            }
+        });
     }
 
     return {
         createNote: createNote,
         getAllNotes: getAllNotes,
         getCatNotes: getCatNotes,
-        getOneNote: getOneNote
+        getOneNote: getOneNote,
+        updateOne: updateOne
     }
 
 }
@@ -64,7 +113,8 @@ function NoteSvc($rootScope, $http){
 const serviceConfig = [
     '$rootScope',
     '$http',
-    NoteSvc
+    'ErrorHttpSvc',
+    NoteSvc,
 ]
 
 angular.module(process.env.ROOT)

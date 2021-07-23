@@ -45,12 +45,12 @@
      ng-class="{'active-note': activeNote === note._id}">
     <a class="note-option nav-link m-0 p-0 text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
        aria-expanded="false"><i class="fa fa-bars" aria-hidden="true"></i></a>
-    <div class="note-menu shadow-lg dropdown-menu bg-dark ">
-        <a class="dropdown-item text-white" href="#">Action</a>
-        <a class="dropdown-item text-white" href="#">Another action</a>
+    <div class="note-menu  border shadow-lg dropdown-menu bg-dark ">
+        <a class="dropdown-item text-white" href="#">Supprimer</a>
+        <!--<a class="dropdown-item text-white" href="#">Another action</a>
         <a class="dropdown-item text-white" href="#">Something else here</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item text-white" href="#">Separated link</a>
+        <a class="dropdown-item text-white" href="#">Separated link</a>-->
     </div>
     <span ng-click="selectedNote(note._id)">
           <h6 class="text-light">{{ note.titre }}</h6>

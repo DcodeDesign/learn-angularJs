@@ -4,7 +4,7 @@ require('./nav-bar.css')
 function navBar($state, LoginSvc) {
 
   return {
-    restrict: 'A',
+    restrict: 'E',
     scope: {},
     templateUrl: require('./nav-bar.html'),
     link: function(scope){

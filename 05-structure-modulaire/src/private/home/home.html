@@ -1,21 +1,16 @@
-<div nav-bar></div>
+<nav-bar></nav-bar>
 <div class="d-flex ">
 
-    <div ng-controller="NoteCategoryCtrl" class="w-full note-categories">
-        <div note-category></div>
-    </div>
+    <note-category ng-controller="NoteCategoryCtrl" class="w-full note-categories"></note-category>
 
-    <div class="note-list shadow-lg" ng-controller="NoteListCtrl" >
-        <div note-list></div>
-    </div>
+    <note-list ng-controller="NoteListCtrl" class="note-list shadow-lg"></note-list>
 
-    <div ng-controller="ContentNoteCtrl" class="w-full content-notes">
-        <div content-note></div>
-    </div>
+    <content-note ng-controller="ContentNoteCtrl" class="w-full content-notes"></content-note>
+
 </div>
 
 
-<!--
+
 <main role="main" class="container pt-5" ui-view>
 </main>
--->
+

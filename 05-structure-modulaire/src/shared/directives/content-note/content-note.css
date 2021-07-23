@@ -58,6 +58,11 @@
 .is-required ::placeholder {
     color: red;
 }
+
+.is-required select{
+    border-bottom:1px solid red;
+}
+
 .select-cat{
     padding: 17px ;
     background-color: var(--color-dark);

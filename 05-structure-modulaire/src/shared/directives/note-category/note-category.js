@@ -8,6 +8,7 @@ function NoteCategoryCtrl($scope, CategorySvc) {
     function initController() {
         $scope.isActiveCategory = true;
         $scope.category = null;
+        $scope.categories = null;
         $scope.loadingCategory = false;
         $scope.activeCategory = null;
         $scope.loadingCategories = false;
@@ -33,12 +34,6 @@ function NoteCategoryCtrl($scope, CategorySvc) {
         });
     }
 
-    function emitEventCat(value){
-        $scope.$emit('newCategory', {
-            emit: value
-        })
-    }
-
     function getAllCategories() {
         $scope.loadingCategories = true;
         CategorySvc.getAllCategories(function (result) {
@@ -54,10 +49,16 @@ function NoteCategoryCtrl($scope, CategorySvc) {
 
     $scope.selectedCategory = function (value) {
         $scope.activeCategory = value;
-        emitEvent(value)
+        emitSelectedCategory(value)
     }
 
-    function emitEvent(value){
+    function emitEventCat(value){
+        $scope.$emit('newCategory', {
+            emit: value
+        })
+    }
+
+    function emitSelectedCategory(value){
         $scope.$emit('selectedCategory', {
             emit: value
         })
@@ -66,7 +67,7 @@ function NoteCategoryCtrl($scope, CategorySvc) {
 
 function noteCategory() {
     return {
-        restrict: 'A',
+        restrict: 'E',
         templateUrl: require('./note-category.html')
     }
 }

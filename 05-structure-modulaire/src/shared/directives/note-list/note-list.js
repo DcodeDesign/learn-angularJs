@@ -2,6 +2,7 @@
 require('./note-list.css')
 
 function NoteListCtrl($scope, NoteSvc, CategorySvc) {
+
     initController();
 
     function initController() {
@@ -15,52 +16,23 @@ function NoteListCtrl($scope, NoteSvc, CategorySvc) {
         getNotes();
     }
 
-    $scope.activeCreaNote = function () {
-        $scope.isActiveCreaNote = !$scope.isActiveCreaNote;
-    }
-
-    function getNotes() {
-        $scope.loadingList = true;
-        NoteSvc.getAllNotes(function (result) {
-            if (result) {
-                $scope.notes = result.data;
-                $scope.loadingList = false;
-                $scope.isActiveCreaNote = false;
-                $scope.activeNote = $scope.noteId;
-            } else {
-                $scope.error = 'Error';
-                $scope.loadingList = false;
-                $scope.isActiveCreaNote = false;
-                $scope.activeNote = null;
-            }
-        });
-    }
-
-    $scope.$on('newNote', function(){
+    $scope.$on('newNote', function(e, message){
+        $scope.noteId = message.emit;
         getNotes();
     })
 
-    function getCatNotes(cat_id) {
-        $scope.loadingList = true;
-        NoteSvc.getCatNotes(cat_id,function (result) {
-            if (result) {
-                $scope.notes = result.data;
-                $scope.loadingList = false;
-                $scope.isActiveCreaNote = false;
-                $scope.activeNote = $scope.noteId;
-            } else {
-                $scope.errorList = 'Error';
-                $scope.loadingList = false;
-                $scope.isActiveCreaNote = false;
-                $scope.activeNote = null;
-            }
-        });
-    }
-
     $scope.$on('selectedCategory', function(event, message){
-        $scope.cat_id = message.emit
-        getCatNotes($scope.cat_id);
+        console.log(message.emit, $scope.cat_id);
+        if(message.emit) {
+            getCatNotes(message.emit);
+        } else {
+            getCatNotes($scope.cat_id);
+        }
     })
+
+    $scope.activeCreaNote = function () {
+        $scope.isActiveCreaNote = !$scope.isActiveCreaNote;
+    }
 
     $scope.createNote = function () {
         $scope.loading = true;
@@ -85,22 +57,53 @@ function NoteListCtrl($scope, NoteSvc, CategorySvc) {
         emitEvent(value)
     }
 
+    function getNotes() {
+        // $scope.loadingList = true;
+        NoteSvc.getAllNotes(function (result) {
+            console.log(result)
+            if (result) {
+                $scope.notes = result.data;
+                // $scope.loadingList = false;
+                $scope.isActiveCreaNote = false;
+                $scope.activeNote = $scope.noteId;
+            } else {
+                $scope.error = 'Error';
+                // $scope.loadingList = false;
+                $scope.isActiveCreaNote = false;
+                $scope.activeNote = null;
+            }
+        });
+    }
+
+    function getCatNotes(cat_id) {
+        $scope.loadingList = true;
+        NoteSvc.getCatNotes(cat_id,function (result) {
+            if (result) {
+                $scope.notes = result.data;
+                $scope.loadingList = false;
+                $scope.isActiveCreaNote = false;
+                $scope.activeNote = $scope.noteId;
+                $scope.cat_id = cat_id;
+            } else {
+                $scope.errorList = 'Error';
+                $scope.loadingList = false;
+                $scope.isActiveCreaNote = false;
+                $scope.activeNote = null;
+            }
+        });
+    }
+
     function emitEvent(value){
+        $scope.activeNote = value;
         $scope.$emit('selectedNote', {
             emit: value
         })
     }
-
-    /*function onChange() {
-        console.log('refresh')
-        getAllNotes();
-    }
-    $scope.$watch('out', onChange);*/
 }
 
 function noteList(NoteSvc) {
     return {
-        restrict: 'A',
+        restrict: 'E',
         templateUrl: require('./note-list.html'),
     }
 }
